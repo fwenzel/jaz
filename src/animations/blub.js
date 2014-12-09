@@ -16,13 +16,21 @@ export class Blub {
     this.ctx.save();
     this.ctx.lineWidth = 10;
 
+    // Rotate a bit around midpoint.
     this.ctx.translate(this.canvas.width / 2, this.canvas.height / 2);
     this.ctx.rotate(phase * Math.PI * 2);
 
-    var ringRep = this.speed * phase % this.ringMargin;  // Repeat faster than phase.
+    // Repeat faster than phase.
+    var ringRep = this.speed * phase % this.ringMargin;
+
     // Starting points in 4 quadrants.
-    for (var x of [-this.canvas.width / 4, this.canvas.width / 4]) {
-      for (var y of [-this.canvas.height / 4, this.canvas.height / 4]) {
+    var widthQuadrant = this.canvas.width / 4;
+    var heightQuadrant = this.canvas.width / 4;
+    var wqArr = [-widthQuadrant, widthQuadrant];
+    var hqArr = [-heightQuadrant, heightQuadrant];
+
+    wqArr.forEach(function (x) {
+      hqArr.forEach(function (y) {
         // Draw all rings.
         for (var radius = ringRep; radius < this.maxRadius; radius += this.ringMargin) {
           this.ctx.strokeStyle = hsla(radius / this.maxRadius * 360, 100, 50, .4);
@@ -30,8 +38,8 @@ export class Blub {
           this.ctx.arc(x, y, radius, 0, Math.PI * 2);
           this.ctx.stroke();
         }
-      }
-    }
+      });
+    });
 
     this.ctx.restore();
   }
