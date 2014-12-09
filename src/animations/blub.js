@@ -12,20 +12,21 @@ export class Blub {
   }
 
   tick(phase) {
-    // Move center.
-    var x = this.canvas.width / 2;
-    var y = this.canvas.height / 2;
-
     this.ctx.save();
     this.ctx.strokeStyle = '#fff';
-    this.ctx.lineWidth = 3;
+    this.ctx.lineWidth = 2;
 
-    // Draw all rings.
-    var ringRep = 500 * phase % this.ringMargin;
-    for (var radius = ringRep; radius < this.maxRadius; radius += this.ringMargin) {
-      this.ctx.beginPath();
-      this.ctx.arc(x, y, radius, 0, Math.PI * 2);
-      this.ctx.stroke();
+    // Starting points in 4 quadrants.
+    for (var x of [this.canvas.width / 4, this.canvas.width * 3 / 4]) {
+      for (var y of [this.canvas.height / 4, this.canvas.height * 3 / 4]) {
+        // Draw all rings.
+        var ringRep = 500 * phase % this.ringMargin;
+        for (var radius = ringRep; radius < this.maxRadius; radius += this.ringMargin) {
+          this.ctx.beginPath();
+          this.ctx.arc(x, y, radius, 0, Math.PI * 2);
+          this.ctx.stroke();
+        }
+      }
     }
 
     this.ctx.restore();
