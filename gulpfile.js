@@ -11,7 +11,7 @@ gulp.task('build', function() {
     .transform(es6ify)
     .require(require.resolve('./src/main.js'), {entry: true})
     .bundle()
-    .pipe(fs.createWriteStream('./app.js'));
+    .pipe(fs.createWriteStream('./www/app.js'));
 });
 
 gulp.task('watch', ['build'], function () {
@@ -19,6 +19,6 @@ gulp.task('watch', ['build'], function () {
 });
 
 gulp.task('deploy', ['build'], function() {
-  return gulp.src(['./index.html', './style.css', './app.js'])
+  return gulp.src(['./www/index.html', './www/style.css', './www/app.js'])
     .pipe(ghPages());
 });
