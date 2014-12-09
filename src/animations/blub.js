@@ -17,13 +17,12 @@ export class Blub {
     this.ctx.lineWidth = 10;
 
     this.ctx.translate(this.canvas.width / 2, this.canvas.height / 2);
-    //this.ctx.translate(0, 0);
     this.ctx.rotate(phase * Math.PI * 2);
 
     var ringRep = this.speed * phase % this.ringMargin;  // Repeat faster than phase.
     // Starting points in 4 quadrants.
-    for (var x of [- this.canvas.width / 4, this.canvas.width * 1 / 4]) {
-      for (var y of [- this.canvas.height / 4, this.canvas.height * 1 / 4]) {
+    for (var x of [-this.canvas.width / 4, this.canvas.width / 4]) {
+      for (var y of [-this.canvas.height / 4, this.canvas.height / 4]) {
         // Draw all rings.
         for (var radius = ringRep; radius < this.maxRadius; radius += this.ringMargin) {
           this.ctx.strokeStyle = hsla(radius / this.maxRadius * 360, 100, 50, .4);
